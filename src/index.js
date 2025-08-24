@@ -1,13 +1,15 @@
 const fs = require('fs');
+const trataErros = require('./erros/funcoesErro');
 
 const link = process.argv[2];
 
 fs.readFile(link, 'utf-8', (erro, texto) => {
-  if(erro){
-    console.log('Qual é o erro?', erro);
-    return
+  try {
+    if (erro) throw erro
+    contaPalavras(texto);
+  } catch(erro) {
+    console.log(trataErros(erro));
   }
-  contaPalavras(texto);
 });
 
 function contaPalavras(texto){
